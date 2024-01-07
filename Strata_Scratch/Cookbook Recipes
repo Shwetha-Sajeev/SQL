@@ -1,0 +1,17 @@
+Ebay
+Amazon
+Hard
+
+You are given the table with titles of recipes from a cookbook and their page numbers. You are asked to represent how the recipes will be distributed in the book.
+
+WITH t1 as(
+select *,(ROW_NUMBER() OVER(ORDER BY page_number) - 1) as rown
+from cookbook_titles)
+select 
+    ((ROW_NUMBER() over(ORDER BY t1.page_number)-1)*2) as left_page_number,
+    t2.title as left_title,
+    t3.title as right_title
+from t1
+LEFT JOIN t1 as t2 ON t2.page_number = t1.rown*2
+LEFT JOIN t1 as t3 ON t3.page_number = t1.rown*2+1;
+# left_page_number | left_title | right_title
