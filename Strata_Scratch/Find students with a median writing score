@@ -1,0 +1,11 @@
+General Assembly
+Kaplan
+Google
+Medium
+
+Output ids of students with a median score from the writing SAT.
+
+with a as (select student_id, sat_writing, rank() over(order by sat_writing) as ranking from sat_scores),
+t as (select floor(count(*)/2) as median  from a) 
+select student_id
+from a join t on a.ranking=t.median
