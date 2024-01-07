@@ -1,0 +1,22 @@
+P(R) represents a pattern drawn by Julia in R rows. The following pattern represents P(5):
+
+* 
+* * 
+* * * 
+* * * * 
+* * * * *
+Write a query to print the pattern P(20).
+
+with recursive cte as (
+select "* * * * * * * * * * * * * * * * * * * * " as pattern
+union 
+select left(pattern, length(pattern)-2) pattern
+from cte 
+where length(pattern) > 1
+)
+
+select pattern 
+from cte
+order by 1 asc
+limit 21 offset 1
+
