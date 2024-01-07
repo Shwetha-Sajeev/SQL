@@ -1,0 +1,13 @@
+Dropbox
+Amazon
+Medium
+
+Find the second highest salary of employees.
+
+SELECT DISTINCT salary
+FROM
+  (SELECT salary,
+          @rank:=@rank+1 AS rank_
+   FROM employee, (SELECT @rank:=0) r
+   ORDER BY salary DESC) A
+WHERE rank_ = 2;
